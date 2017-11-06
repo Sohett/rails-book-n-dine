@@ -1,22 +1,21 @@
 class UsersController < ApplicationController
-  before_action :set_cocktail, only: [:show]
+  before_action :set_user, only: [:show, :edit, :update]
 
   def show
+  end
+
+  def edit
     #code
   end
 
-  def new
-    #code
-  end
-
-  def create
+  def update
     #code
   end
 
   private
 
   def set_user
-    @user = User.find(params########)
+    @user = User.find(params[:id])
   end
 
   def user_params

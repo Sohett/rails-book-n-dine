@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+      <H1>This is a test</H1>
+
+      <ul>
+        <% @restaurants.each do |restaurant|  %>
+        <li> <%= restaurant.name %> </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
