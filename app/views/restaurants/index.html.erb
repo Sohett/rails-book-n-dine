@@ -4,6 +4,7 @@
   <div class="row">
     <%  @restaurants.each do |restau|%>
     <div class="col-xs-12 col-sm-4">
+<<<<<<< HEAD
       <%= link_to  restaurant_path(restau) do %>
       <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
         <div class="card-category"></div>
@@ -31,3 +32,26 @@
   (ceci est a mettre directement dans la navbar les gars)<%= link_to "My  USER dashboard", user_path(current_user) %>
   <% end %>
 </div>
+=======
+      <% unless restau.photo.file.nil? %>
+      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path restau.photo, height: 300, width: 400, crop: :fill %>')">
+        <% else %>
+        <div@ class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+          <% end %>
+  <div class="card-category"></div>
+  <div class="card-description">
+    <h2><%= restau.name %></h2>
+    <p><%= restau.municipality %></p>
+    <p><%= restau.category %></p>
+    <p><a class="btn btn-primary" href=#>More Info</a></p>
+  </div>
+
+
+
+</div>
+</div>
+<% end %>
+</div>
+</div>
+
+>>>>>>> 3324fc870aca48a22274e91f8732ca50466e408b

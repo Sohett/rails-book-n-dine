@@ -7,9 +7,14 @@
     <%= f.input :capacity %>
     <%= f.input :address %>
     <%= f.input :category %>
+    <%= f.input :photo %>
+    <%= f.input :photo_cache, as: :hidden %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
+
+bundle binstubs figaro
+figaro install

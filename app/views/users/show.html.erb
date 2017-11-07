@@ -25,19 +25,24 @@
 <% end %>
 
 
-<div class="container">
+<div style="background: #d6d6d6; margin: 10px auto" class="container">
   <h3>Here the user can see all his bookings</h3>
   <p>cards with all his bookings</p>
   <% @user.bookings.each do |booking| %>
-  date de réservation : <%= booking.booking_date %>
-  au restaurant : <%= booking.restaurant.name %>
+  <p>
+    date de réservation : <%= booking.booking_date %>
+    au restaurant : <%= booking.restaurant.name %>
+    <%= link_to "Delete my reservation", restaurant_booking_path(booking.restaurant.id, booking.id), method: :delete, class: "btn btn-danger", :data => {:confirm => 'Are you sure?'} %>
+  </p>
   <% end  %>
+  <p><%= link_to "New reservation", restaurants_path, class: "btn btn-primary" %> </p>
 </div>
+
 
 
 <% if @user.owner  %>
 
-<div class="container" style="margin:20px; background:grey; color: white;">
+<div class="container" style="margin: 30px auto; background:grey; color: white;">
   <H1>only available for users with the attribute OWNER</H1>
   <hr>
 
@@ -58,7 +63,8 @@
           <p><%= n %>.
             Name : <%= restaurant.name %>|
             Capacity : <%= restaurant.capacity %>|
-            Address : <%= restaurant.address %></p>
+            Address : <%= restaurant.address %>
+            <%= link_to "Edit my restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning" %> </p>
           </li>
           <% n+=1 %>
           <% end  %>
