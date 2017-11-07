@@ -1,38 +1,32 @@
 class BookingsController < ApplicationController
-  before_action :set_cocktail, only: [:show, :destroy]
-
-  def index
-  end
-
-  def show
-  end
+  before_action :set_restaurant, only: [:show, :new, :create, :destroy]
 
   def new
     @booking = Booking.new
-    @restaurant = Restaurant.find(params.require(:restaurant_id))
   end
 
   def create
     @booking = Booking.new(booking_params)
     @booking.user = current_user
-    @restaurant = Restaurant.find(params.require(:restaurant_id))
     @booking.restaurant = @restaurant
     @booking.status = "Booked !"
     if @booking.save
       redirect_to user_path(current_user)
     else
-      raise
+      render 'bookings/new'
     end
   end
 
   def destroy
-    #code
+    @booking = Booking.find(params.require(:id))
+    @booking.destroy
+    redirect_to user_path(current_user)
   end
 
   private
 
-  def set_booking
-    @booking = Booking.find(params(:id))
+  def set_restaurant
+    @restaurant = Restaurant.find(params.require(:restaurant_id))
   end
 
   def booking_params
