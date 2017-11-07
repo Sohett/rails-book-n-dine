@@ -1,6 +1,6 @@
 <div class="navbar-wagon">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-wagon-brand" do %>
+  <%= link_to "#{root_path}", class: "navbar-wagon-brand" do %>
     <%= image_tag "logo_chronos.png" %>
   <% end %>
 
@@ -11,23 +11,23 @@
 
       <!-- Links when logged in -->
 
-      <%= link_to "All Restaurants", "/restaurants", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "My Dashboard", "/users/:id", class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to "All Restaurants", "#{restaurants_path}#restaurants", class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to "My Dashboard", user_path(current_user), class: "navbar-wagon-item navbar-wagon-link" %>
 
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
           <!-- remplacer la photo de sebastien Saunier et importer la GEM permettant a la personne d'importer des photos de profil -->
-          <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+          <%= image_tag "#{current_user.first_name}", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
-              <%= link_to "#" do %>
+              <%= link_to edit_user_path(current_user) do %>
                 <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
               <% end %>
             </li>
             <li>
-              <%= link_to "#" do %>
+              <%= link_to restaurants_path do %>
                 <i class="fa fa-home"></i>  <%= t(".profile", default: "Home") %>
               <% end %>
             </li>

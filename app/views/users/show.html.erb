@@ -12,14 +12,14 @@
 <% unless current_user.last_name && current_user.first_name %>
 <div class="container">
   <h3>Edit the information of the user</h3>
-  <%= render 'form'  %>
+  <%= render 'form' %>
 </div>
 <% end %>
 
 
 <% unless current_user.owner %>
 <div class="container">
-  <p>Become an owner</p>
+  <h2>Become an owner</h2>
   <%= render 'owner'  %>
 </div>
 <% end %>
@@ -37,7 +37,6 @@
   <% end  %>
   <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
 </div>
-
 
 
 <% if @user.owner  %>
