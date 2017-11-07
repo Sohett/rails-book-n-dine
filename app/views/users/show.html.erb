@@ -1,3 +1,70 @@
-<h1>This is the show page of a user</h1>
 
-<%= @user.last_name %>
+<div class="container">
+  <h3>This is the show page of a user</h3>
+  <p>Here we will have his first_name, last_name, ...</p>
+  <p>id of the user = <%= current_user.id %></p>
+  <p>first_name of the user = <%= current_user.first_name %></p>
+  <p>last_name of the user = <%= current_user.last_name %></p>
+  <p>phone_number of the user = <%= current_user.phone_number %></p>
+  <p>Owner ? = <%= current_user.owner %></p>
+</div>
+
+<% unless current_user.last_name && current_user.first_name %>
+<div class="container">
+  <h3>Edit the information of the user</h3>
+  <%= render 'form'  %>
+</div>
+<% end %>
+
+
+<% unless current_user.owner %>
+<div class="container">
+  <p>Become an owner</p>
+  <%= render 'owner'  %>
+</div>
+<% end %>
+
+
+<div class="container">
+  <h3>Here the user can see all his bookings</h3>
+  <p>cards with all his bookings</p>
+  <% @user.bookings.each do |booking| %>
+  date de réservation : <%= booking.booking_date %>
+  au restaurant : <%= booking.restaurant.name %>
+  <% end  %>
+</div>
+
+
+<% if @user.owner  %>
+
+<div class="container" style="margin:20px; background:grey; color: white;">
+  <H1>only available for users with the attribute OWNER</H1>
+  <hr>
+
+  <div class="container">
+    <h3>Add a restaurant</h3>
+    <p>Link to the button add a restaurant</p>
+    <%=  link_to "Add a restaurant", new_restaurant_path, class: "btn btn-primary" %>
+  </div>
+
+  <div class="container">
+    <h3>The list of the owners restaurants</h3>
+    <p>cards with all the restaurants that the owner onws</p>
+    <div class="row">
+      <ul>
+        <% n = 1  %>
+        <% @user.restaurants.each do |restaurant|  %>
+        <li>
+          <p><%= n %>.
+            Name : <%= restaurant.name %>|
+            Capacity : <%= restaurant.capacity %>|
+            Address : <%= restaurant.address %></p>
+          </li>
+          <% n+=1 %>
+          <% end  %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <% end  %>
