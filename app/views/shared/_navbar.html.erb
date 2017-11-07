@@ -10,9 +10,10 @@
     <% if registration_signed_in? %>
 
       <!-- Links when logged in -->
-      <%= link_to "A CHANGER- alex / luc", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "A CHANGER- alex / luc", "#", class: "navbar-wagon-item navbar-wagon-link" %>
-      <%= link_to "A CHANGER- alex / luc", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+
+      <%= link_to "All Restaurants", "/restaurants", class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to "Dashboard", "/users/:id", class: "navbar-wagon-item navbar-wagon-link" %>
+
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
