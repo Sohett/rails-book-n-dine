@@ -5,17 +5,21 @@ class UsersController < ApplicationController
   end
 
   def edit
-    #code
   end
 
   def update
-    #code
+    @user.update(user_params)
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render 'users/form'
+    end
   end
 
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def user_params

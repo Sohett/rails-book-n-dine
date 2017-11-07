@@ -1,21 +1,23 @@
 class RestaurantsController < ApplicationController
   skip_before_action :authenticate_registration!, only: [:index, :show]
-  before_action :set_cocktail, only: [:show, :destroy]
+  before_action :set_restaurant, only: [:show, :destroy]
 
   def index
     @restaurants = Restaurant.all
   end
 
   def show
-    #code
   end
 
   def new
-    #code
+    @restaurant = Restaurant.new
   end
 
   def create
-    #code
+    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user = current_user
+    @restaurant.save!
+    redirect_to user_path(current_user)
   end
 
   def destroy
@@ -25,7 +27,7 @@ class RestaurantsController < ApplicationController
   private
 
   def set_restaurant
-    # @restaurant = Restaurant.find()
+    @restaurant = Restaurant.find(params[:id])
   end
 
   def restaurant_params
