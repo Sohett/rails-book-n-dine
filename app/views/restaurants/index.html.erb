@@ -1,15 +1,21 @@
 <%= render 'shared/banner'  %>
 
-<div class="container">
+<div style="margin-bottom: 100px; "class="container">
   <div class="row">
     <div class="col-sm-4 col-sm-offset-4">
-      <H1>This is a test</H1>
+      <H1>Ici se trouve la liste de tous les restaurants</H1>
 
       <ul>
         <% @restaurants.each do |restaurant|  %>
-        <li> <%= restaurant.name %> </li>
+        <li> <%= link_to restaurant.name, restaurant_path(restaurant) %> </li>
         <% end %>
       </ul>
+
+      <% if current_user  %>
+      id user : <%= current_user.id %>
+      <hr>
+      (ceci est a mettre directement dans la navbar les gars)<%= link_to "My  USER dashboard", user_path(current_user) %>
+      <% end %>
     </div>
   </div>
 </div>
