@@ -2,14 +2,20 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 col-sm-offset-4">
-      <H1>This is a test</H1>
-
-      <ul>
-        <% @restaurants.each do |restaurant|  %>
-        <li> <%= restaurant.name %> </li>
-        <% end %>
-      </ul>
-    </div>
+    <%  @restaurants.each do |restau|%>
+    <div class="col-xs-12 col-sm-4">
+      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
+  <div class="card-category"></div>
+  <div class="card-description">
+    <h2><%= restau.name %></h2>
+    <p><%= restau.municipality %></p>
+    <p><%= restau.category %></p>
+    <p><a class="btn btn-primary" href=#>More Info</a></p>
   </div>
+  <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
+  <a class="card-link" href="#" ></a>
+</div>
+</div>
+<% end %>
+</div>
 </div>
