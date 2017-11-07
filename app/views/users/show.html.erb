@@ -35,7 +35,7 @@
     <%= link_to "Delete my reservation", restaurant_booking_path(booking.restaurant.id, booking.id), method: :delete, class: "btn btn-danger", :data => {:confirm => 'Are you sure?'} %>
   </p>
   <% end  %>
-  <p><%= link_to "New reservation", restaurants_path, class: "btn btn-primary" %> </p>
+  <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
 </div>
 
 
