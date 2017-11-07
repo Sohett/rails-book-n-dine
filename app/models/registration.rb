@@ -11,10 +11,10 @@ class Registration < ApplicationRecord
 
   # raise
 
-  def create_user
-    if registration_signed_in?
-      user = User.new
-      user.registration = registration_session
-    end
-  end
+  # def create_user
+  #   if registration_signed_in?
+  #     user = User.new
+  #     user.registration = registration_session
+  #   end
+  # end
 end

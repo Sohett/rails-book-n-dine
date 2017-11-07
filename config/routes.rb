@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :registrations
   root to: 'restaurants#index'
 
-  resources :users, only: [:show, :edit, :update] do
-    resources :restaurants, only: [:index, :show, :new, :create, :destroy]
+  resources :users, only: [:show, :edit, :update]
+  resources :restaurants do
     resources :bookings, except: [:edit, :update]
   end
 end
