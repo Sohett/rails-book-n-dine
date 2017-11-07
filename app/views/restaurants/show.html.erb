@@ -1,14 +1,23 @@
 <div class="container">
+  <h2><%= @restaurant.name%></h2>
 
-  <ul>
+  <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
+    <div class="card-category">Popular</div>
+  </div>
+  <div class="text-center">
     <li>
-      <%= @restaurant.name %>
-      <%= @restaurant.capacity %>
-      <%= @restaurant.address %>
-      <%= @restaurant.category %>
-      <%= @restaurant.municipality %>
+      <strong>Address:</strong> <%= @restaurant.address %>
+      | <strong>Municipality:</strong> <%= @restaurant.municipality %>
+      | <strong>Capacity:</strong> <%= @restaurant.capacity %>
+      | <strong>Category:</strong> <%= @restaurant.category %>
     </li>
-  </ul>
-
-  <%= link_to "Book a restaurant", new_restaurant_booking_path(@restaurant), class: "btn btn-danger" %>
+  </div>
+  <div class ="btn-show text-center">
+    <%= link_to "Book this restaurant", new_restaurant_booking_path(@restaurant), class: "btn btn-primary" %>
+  </div>
+  <%= link_to "Back", restaurants_path %>
 </div>
+
+
+
+
