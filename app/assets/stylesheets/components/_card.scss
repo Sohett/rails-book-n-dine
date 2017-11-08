@@ -5,8 +5,8 @@
   background-position: center;
   color: white;
   position: relative;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 .card-user {
   position: absolute;
@@ -48,3 +48,12 @@
 .card-link:hover {
   opacity: 0.1;
 }
+
+.card.card-show {
+  .card-description {
+    position: absolute;
+    top: 0;
+    left: 10px;
+  }
+}
+
