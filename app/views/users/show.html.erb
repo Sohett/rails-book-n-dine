@@ -19,9 +19,9 @@
 
 <div style="background: #d6d6d6; margin: 10px auto" class="container">
   <% if @user.owner %>
-    <h2>My private bookings</h2>
+  <h2>My private bookings</h2>
   <% else %>
-    <h2>My bookings</h2>
+  <h2>My bookings</h2>
   <% end %>
   <% if current_user.bookings.any?%>
   <% @user.bookings.each do |booking| %>
@@ -29,8 +29,9 @@
     <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
       <div class="card-description">
         <h2><%= booking.restaurant.name %></h2>
-        <p><strong><%= booking.booking_date %></strong></p>
-        <%= link_to "Cancel reservation", restaurant_booking_path(booking.restaurant.id, booking.id), method: :delete, :data => {:confirm => 'Are you sure?'} %>
+        <h4><%= booking.booking_date %></h4>
+        <p> <%= link_to "Cancel reservation", restaurant_booking_path(booking.restaurant.id, booking.id), class: "btn btn-info", method: :delete, :data => {:confirm => 'Are you sure?'} %>
+        </p>
       </div>
     </div>
   </div>
@@ -45,7 +46,7 @@
 
 <% if @user.owner  %>
 
-<div class="container" style="margin: 30px auto; background:grey; color: white;">
+<div class="container" style="margin: 30px auto; background: #d6d6d6;">
   <h2>My restaurants</h2>
 
   <div class="container">
@@ -54,25 +55,43 @@
   </div>
 
   <div class="container">
-    <h3>My restaurants</h3>
-    <div class="row">
-      <ul>
-        <% n = 1  %>
-        <% @user.restaurants.each do |restaurant|  %>
+    <h3>My restaurants bookings</h3>
+    <% if current_user.restaurants.any?%>
+    <ol>
+      <% @user.restaurants.each do |restaurant|  %>
+      <div class="row">
         <li>
-          <p><%= n %>.
-            Name : <%= restaurant.name %>|
-            Capacity : <%= restaurant.capacity %>|
-            Address : <%= restaurant.address %>
+          <p>
+            <strong>Name: </strong><%= restaurant.name %>|
+            <strong>Capacity: </strong><%= restaurant.capacity %>|
+            <strong>Address: </strong><%= restaurant.address %> |
+            <strong>Municipality: </strong><%= restaurant.municipality %>
             <%= link_to "Edit my restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning" %> </p>
+
           </li>
-          <% n+=1 %>
-          <% end  %>
-        </ul>
-      </div>
+          <% restaurant.bookings.each do |booking| %>
+          <div class="col-xs-12 col-sm-4">
+            <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+              <div class="card-description">
+                <h2><%= booking.user.first_name + " " + booking.user.last_name %></h2>
+                <h4><%= booking.booking_date %></h4>
+                <p><%= booking.status %></p>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <% end  %>
+        <% else %>
+        <p>No booking yet</p>
+        <% end %>
+      </ol>
     </div>
-    <div class="container">
-      <h3>My current bookings</h3>
+    <!-- this div displays the restaurants in the card format -->
+    <!-- would be nice to click on it and have access to all the bookings  -->
+
+    <!-- <div class="container">
+      <h3>All my bookings</h3>
       <% @user.restaurants.each do |restaurant| %>
       <div class="col-xs-12 col-sm-4">
         <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
@@ -81,8 +100,9 @@
             <p><strong>...</strong></p>
           </div>
         </div>
-        <% end %>
       </div>
+        <% end %>
+      </div> -->
     </div>
 
-  <% end  %>
+    <% end  %>
