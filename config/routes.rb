@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
+  mount Attachinary::Engine => "/attachinary"
   devise_for :registrations, :controllers => { registrations: "registrations"}
   root to: 'restaurants#index'
 
   resources :users, only: [:show, :edit, :update]
   resources :restaurants do
-    resources :bookings, except: [:edit, :update]
+  resources :bookings, except: [:edit, :update]
   end
 end
-
 
 
 
