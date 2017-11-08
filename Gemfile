@@ -20,6 +20,7 @@ gem 'uglifier'
 gem 'figaro'
 gem 'cloudinary'
 gem 'carrierwave'
+gem "geocoder"
 
 group :development, :test do
   gem 'pry-byebug'
