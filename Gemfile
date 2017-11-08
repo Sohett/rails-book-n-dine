@@ -23,6 +23,7 @@ gem 'carrierwave'
 gem "geocoder"
 gem "coffee-rails"
 gem "gmaps4rails"
+gem "simple_calendar", "~> 2.0"
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
