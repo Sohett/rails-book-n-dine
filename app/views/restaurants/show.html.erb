@@ -17,3 +17,12 @@
   </div>
   <%= link_to "Back", restaurants_path %>
 </div>
+
+
+<%= content_for(:after_js) do %>
+  <script type="text/javascript">
+  $(document).ready(function() {
+      alert('Welcome to <%= j @restaurant.name%>');
+  });
+  </script>
+<% end %>
