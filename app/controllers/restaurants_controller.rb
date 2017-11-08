@@ -7,6 +7,10 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    @hash = Gmaps4rails.build_markers(@restaurant) do |restaurant, marker|
+      marker.lat restaurant.latitude
+      marker.lng restaurant.longitude
+    end
   end
 
   def edit
