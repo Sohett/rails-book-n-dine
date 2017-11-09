@@ -18,12 +18,15 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'figaro'
+
 gem 'cloudinary'
-gem 'carrierwave'
 gem "geocoder"
 gem "coffee-rails"
 gem "gmaps4rails"
 gem "simple_calendar", "~> 2.0"
+gem 'attachinary', github: 'assembler/attachinary'
+gem 'jquery-fileupload-rails'
+
 
 source 'https://rails-assets.org' do
   gem "rails-assets-underscore"

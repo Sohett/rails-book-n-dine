@@ -1,7 +1,7 @@
 class Restaurant < ApplicationRecord
   belongs_to :user
   has_many :bookings
-  mount_uploader :photo, PhotoUploader
+  has_attachments :photos, maximum: 4
 
   validates :name, :municipality, :address, :capacity, presence: true
 
