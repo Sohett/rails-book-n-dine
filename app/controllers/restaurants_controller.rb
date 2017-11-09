@@ -3,9 +3,18 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :destroy, :update]
 
   def search
-    search = params[:search][:q]
-    @restaurants = Restaurant.where(category: search)
-    render 'index'
+    query = params[:search][:query]
+    if query == ""
+      @restaurants = Restaurant.all
+    else
+      @restaurants = Restaurant.search(query)
+    end
+    @restaurants_geo = @restaurants
+    @hash = Gmaps4rails.build_markers(@restaurants_geo) do |restaurant, marker|
+      marker.lat restaurant.latitude
+      marker.lng restaurant.longitude
+    end
+    render 'index', location: "restaurants"
   end
 
   def index
