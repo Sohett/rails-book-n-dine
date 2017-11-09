@@ -1,48 +1,49 @@
-
 <div class="container">
-  <h1>Welcome to your dashboard <%= current_user.first_name %>!</h1>
-  <!-- <p>Here we will have his first_name, last_name, ...</p>
-  <p>id of the user = <%= current_user.id %></p>
-  <p>first_name of the user = <%= current_user.first_name %></p>
-  <p>last_name of the user = <%= current_user.last_name %></p>
-  <p>phone_number of the user = <%= current_user.phone_number %></p>
-  <p>Owner ? = <%= current_user.owner %></p> -->
-</div>
-
-<% unless current_user.owner %>
-<div class="container">
-  <h2>Become an owner</h2>
-  <%= render 'owner'  %>
-</div>
-<% end %>
-
-
-<div style="background: #d6d6d6; margin: 10px auto" class="container">
-  <% if @user.owner %>
-  <h2>My private bookings</h2>
-  <% else %>
-  <h2>My bookings</h2>
-  <% end %>
-  <% if current_user.bookings.any?%>
-  <% @user.bookings.each do |booking| %>
-  <div class="col-xs-12 col-sm-4">
-    <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
-      <div class="card-description">
-        <h2><%= booking.restaurant.name %></h2>
-        <h4><%= booking.booking_date %></h4>
-        <p> <%= link_to "Cancel reservation", restaurant_booking_path(booking.restaurant.id, booking.id), class: "btn btn-info", method: :delete, :data => {:confirm => 'Are you sure?'} %>
-        </p>
+  <div class="profile text-center">
+    <div class="main">
+      <div class="main-content">
+        <img src='https://kitt.lewagon.com/placeholder/users/ScrumMaster323' class="avatar-large"/>
+        <h2><%= current_user.first_name %></h2>
+        <p><%= current_user.phone_number %></p>
+        <p><%= current_user.registration.email %></p>
+        <p><%=  %></p>
+        <%= link_to "Edit info", edit_user_path(current_user), class: "btn btn-info" %>
       </div>
     </div>
+    <div class="title-booking">
+      <div class="title-content">
+       <% if @user.owner %>
+       <h2>My private bookings</h2>
+       <% else %>
+       <h2>My bookings</h2>
+       <% end %>
+     </div>
+   </div>
+   <div class="description">
+    <% if current_user.bookings.any?%>
+    <div class="container-fluid">
+      <div class="row">
+        <% @user.bookings.each do |booking| %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+            <h2><%= booking.restaurant.name %></h2>
+            <h4><%= booking.booking_date %></h4>
+            <p> <%= link_to "Cancel reservation", restaurant_booking_path(booking.restaurant.id, booking.id), class: "btn btn-info", method: :delete, :data => {:confirm => 'Are you sure?'} %>
+            </p>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% else %>
+    <p>No booking yet</p>
+    <% end %>
   </div>
-  <% end  %>
-  <% else %>
-  <p>No booking yet</p>
-  <% end %>
+  <div class="container text-center">
+    <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
+  </div>
 </div>
-<div class="text-center">
-  <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
-</div>
+
 
 <% if @user.owner  %>
 
@@ -108,7 +109,6 @@
     <% end  %>
 
 
-
 <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
 
 <div class="container">
@@ -124,3 +124,4 @@
   <% end %>
   <% end %>
 </div>
+
