@@ -1,0 +1,4 @@
+<%= simple_form_for :search, url: search_path(:search), :method => :get  do |f| %>
+  <%= f.input :q , placeholder: "Filter on the capacity"%>
+  <%= f.submit "Search" %>
+<% end %>
