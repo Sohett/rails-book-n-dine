@@ -23,7 +23,7 @@
     <% if current_user.bookings.any?%>
     <div class="container-fluid">
       <div class="row">
-          <% @user.bookings.each do |booking| %>
+        <% @user.bookings.each do |booking| %>
         <div class="col-xs-12 col-sm-6 col-md-4">
           <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
             <h2><%= booking.restaurant.name %></h2>
@@ -33,22 +33,17 @@
           </div>
         </div>
         <% end %>
-
       </div>
     </div>
-
-
     <% else %>
     <p>No booking yet</p>
     <% end %>
   </div>
-<!-- <div class="text-center">
-  <p>< link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
-</div> -->
+  <div class="container text-center">
+    <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
+  </div>
 </div>
-</div>
-</div>
-</div>
+
 
 <% if @user.owner  %>
 
@@ -112,11 +107,11 @@
     </div>
 
     <% end  %>
-<!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
+    <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
 
-<%= month_calendar do |date| %>
-<%= date %>
-<% end %>
+    <%= month_calendar do |date| %>
+    <%= date %>
+    <% end %>
 
 
 
