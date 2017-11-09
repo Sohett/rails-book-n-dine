@@ -2,8 +2,20 @@ class RestaurantsController < ApplicationController
   skip_before_action :authenticate_registration!, only: [:index, :show]
   before_action :set_restaurant, only: [:show, :edit, :destroy, :update]
 
+  def search
+    @search = params[:search][:q]
+    @restaurants_filter = Restaurant.find(@search)
+    redirect_to restaurants_path
+  end
+
   def index
     @restaurants = Restaurant.all
+
+    @restaurants_geo = Restaurant.where.not(latitude: nil, longitude: nil)
+    @hash = Gmaps4rails.build_markers(@restaurants_geo) do |restaurant, marker|
+      marker.lat restaurant.latitude
+      marker.lng restaurant.longitude
+    end
   end
 
   def show

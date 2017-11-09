@@ -6,9 +6,8 @@ Rails.application.routes.draw do
   resources :restaurants do
     resources :bookings, except: [:edit, :update]
   end
+  get 'restaurants/search/:q', to:'restaurants#search', as: :search
 end
-
-
 
 
 
