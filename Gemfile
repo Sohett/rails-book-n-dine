@@ -18,10 +18,17 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'figaro'
-gem 'cloudinary', '1.1.7'
-gem 'attachinary', github: "assembler/attachinary"
-gem 'jquery-fileupload-rails'
-gem 'coffee-rails'
+
+gem 'cloudinary'
+gem 'carrierwave'
+gem "geocoder"
+gem "coffee-rails"
+gem "gmaps4rails"
+gem "simple_calendar", "~> 2.0"
+
+source 'https://rails-assets.org' do
+  gem "rails-assets-underscore"
+end
 
 group :development, :test do
   gem 'pry-byebug'

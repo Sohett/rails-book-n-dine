@@ -1,21 +1,13 @@
 
 <div class="container">
-  <h3>This is the show page of a user</h3>
-  <p>Here we will have his first_name, last_name, ...</p>
+  <h1>Welcome to your dashboard <%= current_user.first_name %>!</h1>
+  <!-- <p>Here we will have his first_name, last_name, ...</p>
   <p>id of the user = <%= current_user.id %></p>
   <p>first_name of the user = <%= current_user.first_name %></p>
   <p>last_name of the user = <%= current_user.last_name %></p>
   <p>phone_number of the user = <%= current_user.phone_number %></p>
-  <p>Owner ? = <%= current_user.owner %></p>
+  <p>Owner ? = <%= current_user.owner %></p> -->
 </div>
-
-<% unless current_user.last_name && current_user.first_name %>
-<div class="container">
-  <h3>Edit the information of the user</h3>
-  <%= render 'form' %>
-</div>
-<% end %>
-
 
 <% unless current_user.owner %>
 <div class="container">
@@ -26,50 +18,96 @@
 
 
 <div style="background: #d6d6d6; margin: 10px auto" class="container">
-  <h3>Here the user can see all his bookings</h3>
-  <p>cards with all his bookings</p>
+  <% if @user.owner %>
+  <h2>My private bookings</h2>
+  <% else %>
+  <h2>My bookings</h2>
+  <% end %>
+  <% if current_user.bookings.any?%>
   <% @user.bookings.each do |booking| %>
-  <p>
-    date de réservation : <%= booking.booking_date %>
-    au restaurant : <%= booking.restaurant.name %>
-    <%= link_to "Delete my reservation", restaurant_booking_path(booking.restaurant.id, booking.id), method: :delete, class: "btn btn-danger", :data => {:confirm => 'Are you sure?'} %>
-  </p>
+  <div class="col-xs-12 col-sm-4">
+    <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+      <div class="card-description">
+        <h2><%= booking.restaurant.name %></h2>
+        <h4><%= booking.booking_date %></h4>
+        <p> <%= link_to "Cancel reservation", restaurant_booking_path(booking.restaurant.id, booking.id), class: "btn btn-info", method: :delete, :data => {:confirm => 'Are you sure?'} %>
+        </p>
+      </div>
+    </div>
+  </div>
   <% end  %>
+  <% else %>
+  <p>No booking yet</p>
+  <% end %>
+</div>
+<div class="text-center">
   <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
 </div>
 
-
 <% if @user.owner  %>
 
-<div class="container" style="margin: 30px auto; background:grey; color: white;">
-  <H1>only available for users with the attribute OWNER</H1>
-  <hr>
+<div class="container" style="margin: 30px auto; background: #d6d6d6;">
+  <h2>My restaurants</h2>
 
   <div class="container">
     <h3>Add a restaurant</h3>
-    <p>Link to the button add a restaurant</p>
     <%=  link_to "Add a restaurant", new_restaurant_path, class: "btn btn-primary" %>
   </div>
 
   <div class="container">
-    <h3>The list of the owners restaurants</h3>
-    <p>cards with all the restaurants that the owner onws</p>
-    <div class="row">
-      <ul>
-        <% n = 1  %>
-        <% @user.restaurants.each do |restaurant|  %>
+    <h3>My restaurants bookings</h3>
+    <% if current_user.restaurants.any?%>
+    <ol>
+      <% @user.restaurants.each do |restaurant|  %>
+      <div class="row">
         <li>
-          <p><%= n %>.
-            Name : <%= restaurant.name %>|
-            Capacity : <%= restaurant.capacity %>|
-            Address : <%= restaurant.address %>
+          <p>
+            <strong>Name: </strong><%= restaurant.name %>|
+            <strong>Capacity: </strong><%= restaurant.capacity %>|
+            <strong>Address: </strong><%= restaurant.address %> |
+            <strong>Municipality: </strong><%= restaurant.municipality %>
             <%= link_to "Edit my restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning" %> </p>
-          </li>
-          <% n+=1 %>
-          <% end  %>
-        </ul>
-      </div>
-    </div>
-  </div>
 
-  <% end  %>
+          </li>
+          <% restaurant.bookings.each do |booking| %>
+          <div class="col-xs-12 col-sm-4">
+            <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+              <div class="card-description">
+                <h2><%= booking.user.first_name + " " + booking.user.last_name %></h2>
+                <h4><%= booking.booking_date %></h4>
+                <p><%= booking.status %></p>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <% end  %>
+        <% else %>
+        <p>No booking yet</p>
+        <% end %>
+      </ol>
+    </div>
+    <!-- this div displays the restaurants in the card format -->
+    <!-- would be nice to click on it and have access to all the bookings  -->
+
+    <!-- <div class="container">
+      <h3>All my bookings</h3>
+      <% @user.restaurants.each do |restaurant| %>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+          <div class="card-description">
+            <h2><%= restaurant.name %></h2>
+            <p><strong>...</strong></p>
+          </div>
+        </div>
+      </div>
+        <% end %>
+      </div> -->
+    </div>
+
+    <% end  %>
+<!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
+
+<%= month_calendar do |date| %>
+<%= date %>
+<% end %>

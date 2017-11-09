@@ -6,14 +6,18 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(booking_params)
-    @booking.user = current_user
-    @booking.restaurant = @restaurant
-    @booking.status = "Booked !"
-    if @booking.save
-      redirect_to user_path(current_user)
+    unless current_user.last_name.nil? && current_user.first_name.nil?
+      @booking = Booking.new(booking_params)
+      @booking.user = current_user
+      @booking.restaurant = @restaurant
+      @booking.status = "Booked !"
+      if @booking.save
+        redirect_to user_path(current_user)
+      else
+        render 'bookings/new'
+      end
     else
-      render 'bookings/new'
+      redirect_to edit_user_path(current_user), alert: "Please complete your profile before booking "
     end
   end
 
