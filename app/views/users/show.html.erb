@@ -106,8 +106,25 @@
     </div>
 
     <% end  %>
+
+
+
 <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
 
-<%= month_calendar do |date| %>
-<%= date %>
-<% end %>
+
+
+
+
+<div class="container">
+  <%= month_calendar events: @user.bookings do |date, bookings| %>
+  <%= date.day %>
+  <% bookings.each do |booking| %>
+    <div>
+      <%= cl_image_tag current_user.photo.path, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown"%>
+      <p>Mister <%= booking.user.last_name %></p>
+      <p>Reservation @<%= booking.restaurant.name %></p>
+      <p><%= booking.user.registration.email %></p>
+    </div>
+  <% end %>
+  <% end %>
+</div>
