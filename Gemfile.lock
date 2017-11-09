@@ -237,12 +237,9 @@ DEPENDENCIES
   attachinary!
   autoprefixer-rails
   bootstrap-sass
-<<<<<<< HEAD
-  cloudinary (= 1.1.7)
-=======
+
   carrierwave
   cloudinary
->>>>>>> 01334f41549951d105d3e44efa1b0c6d4fc33573
   coffee-rails
   devise
   figaro
