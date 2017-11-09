@@ -4,8 +4,8 @@
   <div class="row">
     <%  @restaurants.each do |restau|%>
     <div class="col-xs-12 col-sm-4">
-      <% unless restau.photo.file.nil? %>
-      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path restau.photo, height: 300, width: 400, crop: :fill %>')">
+      <% unless restau.photos.empty? %>
+      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path restau.photos.first.path, height: 300, width: 400, crop: :fill %>')">
         <% else %>
         <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
           <% end %>
@@ -16,6 +16,7 @@
             <p><%= restau.category %></p>
             <p><%= link_to "More Info", restaurant_path(restau), class:"btn btn-info"%> </p>
           </div>
+
 
         </div>
       </div>

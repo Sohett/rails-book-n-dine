@@ -237,8 +237,6 @@ DEPENDENCIES
   attachinary!
   autoprefixer-rails
   bootstrap-sass
-
-  carrierwave
   cloudinary
   coffee-rails
   devise

@@ -1,23 +1,52 @@
-<div class="container">
-  <h2><%= @restaurant.name%></h2>
 
-  <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
-    <div class="card-category">Popular</div>
+
+
+  <div class="banner show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path @restaurant.photos.first.path%>')">
+    <h2><%= @restaurant.name%></h2>
   </div>
-  <div class="text-center">
-    <li>
-      <strong>Address:</strong> <%= @restaurant.address %>
-      | <strong>Municipality:</strong> <%= @restaurant.municipality %>
-      | <strong>Capacity:</strong> <%= @restaurant.capacity %>
-      | <strong>Category:</strong> <%= @restaurant.category %>
-    </li>
+    <div class="container">
+    <div class="card-category"></div>
   </div>
-  <div class ="btn-show text-center">
-    <%= link_to "Book this restaurant", new_restaurant_booking_path(@restaurant), class: "btn btn-primary" %>
+
+  <div class="container">
+    <div class="row text-center box">
+      <div class="col-md-3">
+        <h3>Address</h3>
+        <p><%= @restaurant.address %></p>
+      </div>
+      <div class="col-md-3">
+        <h3>Municipality</h3>
+        <p><%= @restaurant.municipality %></p>
+      </div>
+      <div class="col-md-3">
+        <h3>Capacity</h3>
+        <p><%= @restaurant.capacity %></p>
+      </div>
+      <div class="col-md-3">
+        <h3>Category</h3>
+        <p><%= @restaurant.category %></p>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <%= link_to "Book this restaurant", new_restaurant_booking_path(@restaurant), class: "btn btn-primary btn-booking" %>
+    </div>
+
   </div>
-  <%= link_to "Back", restaurants_path %>
+
+
+<div style="margin-bottom: 100px;" class="container" id="restaurants">
+  <div class="row">
+    <%  @restaurant.photos.each do |photo|%>
+    <div class="col-xs-12 col-sm-4">
+      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path photo.path, height: 300, width: 400, crop: :fill %>')">
+
+
+      </div>
+    </div>
+    <% end %>
+  </div>
 </div>
-
 
 
 
