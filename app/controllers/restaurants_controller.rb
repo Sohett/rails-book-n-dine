@@ -3,14 +3,13 @@ class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :destroy, :update]
 
   def search
-    @search = params[:search][:q]
-    @restaurants_filter = Restaurant.find(@search)
-    redirect_to restaurants_path
+    search = params[:search][:q]
+    @restaurants = Restaurant.where(category: search)
+    render 'index'
   end
 
   def index
     @restaurants = Restaurant.all
-
     @restaurants_geo = Restaurant.where.not(latitude: nil, longitude: nil)
     @hash = Gmaps4rails.build_markers(@restaurants_geo) do |restaurant, marker|
       marker.lat restaurant.latitude
@@ -64,5 +63,4 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:name, :municipality, :capacity, :category, :address, :user_id, :photo)
   end
-
 end
