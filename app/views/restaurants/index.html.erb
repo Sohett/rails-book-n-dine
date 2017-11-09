@@ -1,5 +1,6 @@
 <%= render 'shared/banner'  %>
 
+<div class="main-container">
 <div style="margin-bottom: 100px;" class="container" id="restaurants">
   <div class="row">
     <%  @restaurants.each do |restau|%>
@@ -16,10 +17,29 @@
             <p><%= restau.category %></p>
             <p><%= link_to "More Info", restaurant_path(restau), class:"btn btn-info"%> </p>
           </div>
-
-
         </div>
       </div>
       <% end %>
     </div>
   </div>
+
+  <div id="map" style="width: 100%; height: 600px;"></div>
+  <!--  maps Javascript google API -->
+    <% content_for(:after_js) do %>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var handler = Gmaps.build('Google');
+          handler.buildMap({internal: { id: 'map' }}, function() {
+            markers = handler.addMarkers(<%= raw @hash.to_json %>);
+            handler.bounds.extendWith(markers);
+            handler.fitMapToBounds();
+            if (markers.length == 0) {
+              handler.getMap().setZoom(2);
+            } else if (markers.length == 1) {
+              handler.getMap().setZoom(14);
+            }
+          });
+        });
+      </script>
+      <% end %>
+</div>

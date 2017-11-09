@@ -1,12 +1,11 @@
 .footer {
   box-shadow: 0 1px 5px 0 rgba(0,0,0,0.07),0 1px 0 0 rgba(0,0,0,0.03);
-  background: white;
+  background: #1d1f21;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 70px;
   padding: 0px 50px;
-  margin-top: 50px;
   color: #616668;
   font-size: 13px;
 }
@@ -15,15 +14,26 @@
   align-items: center;
 }
 .footer-links a {
-  color: #616668;
-  opacity: 0.15;
+  color: #adaeaa;
+  opacity: 0.9;
   text-decoration: none;
   font-size: 18px;
   padding: 0px 10px;
 }
 .footer-links a:hover {
+  color: #feb632;
   opacity: 1;
 }
 .footer .fa-heart {
   color: #D23333;
 }
+
+// to onky get the copyright and the links on mobile
+@media only screen and (max-width: 640px) {
+    .footer-copyright {
+      display: none;
+    }
+    .footer-links {
+      justify-content: center;
+    }
+  }

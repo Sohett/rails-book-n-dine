@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  
   &.show {
     max-height: 70vh;
 
@@ -17,7 +17,6 @@
      padding-top: 30vh;
     }
   }
-
 
 }
 .banner h1 {

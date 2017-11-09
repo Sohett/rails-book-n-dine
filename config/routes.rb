@@ -7,10 +7,8 @@ Rails.application.routes.draw do
   resources :restaurants do
   resources :bookings, except: [:edit, :update]
   end
+  get 'restaurants/search/:q', to:'restaurants#search', as: :search
 end
-
-
-
 
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
