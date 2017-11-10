@@ -1,11 +1,12 @@
 class BookingsController < ApplicationController
-  before_action :set_restaurant, only: [:show, :new, :create, :destroy]
+  before_action :set_restaurant, only: [:booked_date, :show, :new, :create, :destroy]
 
   def show
     @booking = Booking.find(params.require(:id))
   end
 
   def new
+    @available_booking = Booking.all - @restaurant.bookings
     @booking = Booking.new
   end
 
@@ -15,10 +16,14 @@ class BookingsController < ApplicationController
       @booking.user = current_user
       @booking.restaurant = @restaurant
       @booking.status = "Booked !"
-      if @booking.save
-        redirect_to user_path(current_user)
+       #if booking does no exists then(depending on the date) the user can book, else, not possible to book
+      if booked_date.include?(@booking.booking_date)
+        flash[:alert] = 'The date you picked is already booked. Please choose another date!'
+        render 'bookings/new', alert: "test"
+        # render 'bookings/new' action: :new, :alert => "You haz errors!"
       else
-        render 'bookings/new'
+        @booking.save
+        redirect_to user_path(current_user), alert: "Your booking has been saved!"
       end
     else
       redirect_to edit_user_path(current_user), alert: "Please complete your profile before booking "
@@ -32,6 +37,14 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def booked_date
+    booked = []
+    @restaurant.bookings.each do |booking|
+      booked << booking.booking_date
+    end
+    return booked
+  end
 
   def set_restaurant
     @restaurant = Restaurant.find(params.require(:restaurant_id))

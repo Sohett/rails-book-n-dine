@@ -28,11 +28,7 @@
   .next-month {}
   .current-month {}
 
-  .has-events {
-    border-style: solid;
-    border-width: 2px;
-    border-color: #feb632;
-  }
+  .has-events {}
 
   /* User Avatar */
   .avatar {
@@ -49,7 +45,11 @@
     background: #feb632;
     margin-left: -8px;
     margin-right: -8px;
+  }
 
+  .event p {
+    font-size: 12px; font-size: 12px;
+    color: #1d1f21;
   }
 
   .event a {
@@ -64,5 +64,10 @@
     }
   }
 
+}
 
+#calendar-user {
+  width: 100%;
+  size: 40vh;
+  margin: 20px 0;
 }

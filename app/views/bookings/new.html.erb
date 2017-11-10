@@ -1,7 +1,30 @@
 <div class="container">
-  <h3>Book a reservation !</h3>
-  <p>date is mendatory !!!! </p>
-  <%= render 'form' %>
+  <h3 class="text-center">Book a reservation !</h3>
 
-  <%= link_to "Back", restaurant_path(@restaurant) %> 
+  <div class="container text-center" style="margin-bottom: 30px">
+    <%= render 'form' %>
+  </div>
+
+
+  <h4 class="text-center">See below if dates are already booked</h4>
+  <div class="container" id="calendar-user">
+    <%= month_calendar events: @restaurant.bookings do |date, bookings| %>
+    <%= date.day %>
+    <% bookings.each do |booking| %>
+      <div>
+        <div class="event">
+          <p>Already booked!</p>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
 </div>
+
+<div class="container text-center" style="margin-bottom: 30px">
+  <%= link_to "Back", restaurant_path(@restaurant), class: "btn btn-info" %>
+</div>
+
+<% flash.each do |key, value| %>
+    <p class="alert alert-<%= key %>"><%= %></p>
+<% end %>
