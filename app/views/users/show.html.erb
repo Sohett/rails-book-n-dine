@@ -2,7 +2,7 @@
   <div class="profile text-center">
     <div class="main">
       <div class="main-content">
-        <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
+          <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
         <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
         <p><%= current_user.phone_number %></p>
         <p><%= current_user.registration.email %></p>
@@ -123,9 +123,8 @@
   <% bookings.each do |booking| %>
     <div>
       <div class="event">
-        <%= link_to booking.restaurant.name, restaurant_booking_path(booking.restaurant, booking) %> 
+        <%= link_to "#{booking.user.first_name} #{booking.user.last_name} at #{booking.restaurant.name}", restaurant_booking_path(booking.restaurant, booking), class: "link_to" %>
       </div>
-      <%= cl_image_tag current_user.photo.path, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown"%>
     </div>
   <% end %>
   <% end %>

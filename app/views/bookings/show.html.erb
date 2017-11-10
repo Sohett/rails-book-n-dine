@@ -1,5 +1,25 @@
-<h2> Info concerning the booking</h2>
+<h2 class="text-center"> Info concerning the booking on <%= @booking.booking_date %> </h2>
 
-<%= @booking.user.first_name %>
-<%= @booking.restaurant.name %>
-<%= @booking.booking_date %>
+
+<div class="container" style="margin-bottom: 20px">
+  <div class="row text-center box">
+    <div class="col-md-3">
+      <h3>The booker info</h3>
+      <p><%= @booking.user.first_name %> <%= @booking.user.last_name %></p>
+      <p><%= @booking.user.registration.email %></p>
+    </div>
+    <div class="col-md-3">
+      <h3>Booker picture</h3>
+      <%= cl_image_tag @booking.user.photo.path, class:"avatar-large"%>
+    </div>
+    <div class="col-md-3">
+      <h3>Date</h3>
+      <p><%= @booking.booking_date %></p>
+    </div>
+    <div class="col-md-3">
+      <h3>Your restaurant</h3>
+      <p><%= @booking.restaurant.name %></p>
+      <p><%= @booking.restaurant.address %></p>
+    </div>
+  </div>
+</div>

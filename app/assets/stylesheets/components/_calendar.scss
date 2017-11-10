@@ -55,6 +55,14 @@
   .event a {
     text-align: center;
     font-size: 12px;
+    color: #1d1f21;
+    opacity : 0.8;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: none;
+    }
   }
+
 
 }
