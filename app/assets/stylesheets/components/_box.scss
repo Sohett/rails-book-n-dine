@@ -7,20 +7,4 @@
   margin-top: 30px;
 }
 
-.btn-booking{
-  padding: 14px 25px;
-  margin: 30px;
-  border-radius:30px;
-  background: transparent;
-  font-family: "Raleway", "Helvetica", "sans-serif";
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-  border-color: #feb632 !important;
-  border: solid;
-}
-
-.btn-booking:hover {
-  background-color: #feb632;
-  text-decoration: none;
-}
+// The buttons designed here are now in the file btn.scss

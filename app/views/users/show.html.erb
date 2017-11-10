@@ -8,6 +8,12 @@
         <p><%= current_user.registration.email %></p>
         <p><%=  %></p>
         <%= link_to "Edit info", edit_user_path(current_user), class: "btn btn-info" %>
+        <% unless current_user.owner %>
+        <div class="container">
+          <h3>Become an owner</h3>
+          <%= render 'owner'  %>
+        </div>
+        <% end %>
       </div>
     </div>
     <div class="title-booking">
@@ -25,10 +31,10 @@
       <div class="row">
         <% @user.bookings.each do |booking| %>
         <div class="col-xs-12 col-sm-6 col-md-4">
-          <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
+          <div class="card-mini" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
             <h2><%= booking.restaurant.name %></h2>
             <h4><%= booking.booking_date %></h4>
-            <p> <%= link_to "Cancel reservation", restaurant_booking_path(booking.restaurant.id, booking.id), class: "btn btn-info", method: :delete, :data => {:confirm => 'Are you sure?'} %>
+            <p> <%= link_to "Cancel", restaurant_booking_path(booking.restaurant.id, booking.id), class: "btn btn-info", method: :delete, :data => {:confirm => 'Are you sure?'} %>
             </p>
           </div>
         </div>
@@ -111,7 +117,6 @@
 
 
 <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
-
 <div class="container">
   <%= month_calendar events: @user.bookings do |date, bookings| %>
   <%= date.day %>
