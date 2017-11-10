@@ -2,7 +2,11 @@
   <div class="profile text-center" style="overflow: auto;">
     <div class="main">
       <div class="main-content">
+        <% if current_user.photo.nil? %>
+        <%= image_tag "blank_user.png", class: "avatar-large" %>
+        <% else %>
         <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
+        <% end %>
         <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
         <p><%= current_user.phone_number %></p>
         <p><%= current_user.registration.email %></p>
@@ -52,66 +56,66 @@
 
 
 <% if @user.owner  %>
-  <div class="wrapper" style="margin: 30px auto; background: rgba(235, 235, 235, 0.95); display: block;">
-    <div class="container">
-      <div class="row spaced-header text-center">
-        <h2>My restaurants</h2>
-      </div>
+<div class="wrapper" style="margin: 30px auto; background: rgba(235, 235, 235, 0.95); display: block;">
+  <div class="container">
+    <div class="row spaced-header text-center">
+      <h2>My restaurants</h2>
+    </div>
 
-      <% if current_user.restaurants.any?%>
-      <div class="text-center box">
-        <% @user.restaurants.each do |restaurant|  %>
-        <div class="row">
-          <div class="col-sm-3">
-            <h3>Address</h3>
-            <p><%= restaurant.address %></p>
-          </div>
-          <div class="col-sm-3">
-            <h3>Capacity</h3>
-            <p><%= restaurant.capacity %></p>
-          </div>
-          <div class="col-sm-3">
-            <h3>Category</h3>
-            <p><%= restaurant.category %></p>
-          </div>
-          <div class="col-sm-3">
-            <%= link_to "Edit restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning btn-centered" %>
-          </div>
+    <% if current_user.restaurants.any?%>
+    <div class="text-center box" style="margin-bottom: 20px;">
+      <% @user.restaurants.each do |restaurant|  %>
+      <div class="row">
+        <div class="col-sm-3">
+          <h3>Address</h3>
+          <p><%= restaurant.address %></p>
         </div>
-        <% end  %>
-        <div class="row">
-          <%=  link_to "Add a restaurant", new_restaurant_path, class: "btn btn-primary" %>
+        <div class="col-sm-3">
+          <h3>Capacity</h3>
+          <p><%= restaurant.capacity %></p>
+        </div>
+        <div class="col-sm-3">
+          <h3>Category</h3>
+          <p><%= restaurant.category %></p>
+        </div>
+        <div class="col-sm-3">
+          <%= link_to "Edit restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning btn-centered" %>
         </div>
       </div>
-      <% else %>
-      <p>No booking yet</p>
-      <% end %>
+      <% end  %>
+    </div>
+    <% else %>
+    <p>No restaurant yet</p>
+    <% end %>
+    <div class="row">
+      <%=  link_to "Add a restaurant", new_restaurant_path, class: "btn btn-primary" %>
+    </div>
 
-<style>
-  .spaced-header {
-    padding: 50px 0px;
-    font-weight: bold;
-    letter-spacing: 15px;
-  }
-</style>
-      <div class="row text-center spaced-header">
-        <h2>Calendar</h2>
-      </div>
-      <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
-      <div class="row" style="padding-top: 50px;" id="calendar">
-        <%= month_calendar events: @user.bookings do |date, bookings| %>
-        <%= date.day %>
-        <% bookings.each do |booking| %>
-        <div>
-          <div class="event">
-            <%= link_to "#{booking.user.first_name} #{booking.user.last_name} at #{booking.restaurant.name}", restaurant_booking_path(booking.restaurant, booking), class: "link_to" %>
-          </div>
-        </div>
-      <% end %>
-      <% end %>
+    <style>
+    .spaced-header {
+      padding: 50px 0px;
+      font-weight: bold;
+      letter-spacing: 15px;
+    }
+  </style>
+  <div class="row text-center spaced-header">
+    <h2>Calendar</h2>
+  </div>
+  <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
+  <div class="row" style="padding-top: 50px;" id="calendar">
+    <%= month_calendar events: @user.bookings do |date, bookings| %>
+    <%= date.day %>
+    <% bookings.each do |booking| %>
+    <div>
+      <div class="event">
+        <%= link_to "#{booking.user.first_name} #{booking.user.last_name} at #{booking.restaurant.name}", restaurant_booking_path(booking.restaurant, booking), class: "link_to" %>
       </div>
     </div>
+    <% end %>
+    <% end %>
   </div>
+</div>
+</div>
 <% end  %>
 </div>
 
