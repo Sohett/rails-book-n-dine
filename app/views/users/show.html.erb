@@ -2,8 +2,8 @@
   <div class="profile text-center">
     <div class="main">
       <div class="main-content">
-        <img src='https://kitt.lewagon.com/placeholder/users/ScrumMaster323' class="avatar-large"/>
-        <h2><%= current_user.first_name %></h2>
+        <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
+        <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
         <p><%= current_user.phone_number %></p>
         <p><%= current_user.registration.email %></p>
         <p><%=  %></p>
@@ -88,6 +88,7 @@
         <% end %>
       </ol>
     </div>
+
     <!-- this div displays the restaurants in the card format -->
     <!-- would be nice to click on it and have access to all the bookings  -->
 
@@ -116,12 +117,11 @@
   <%= date.day %>
   <% bookings.each do |booking| %>
     <div>
+      <div class="event">
+        <%= link_to booking.restaurant.name, restaurant_booking_path(booking.restaurant, booking) %> 
+      </div>
       <%= cl_image_tag current_user.photo.path, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown"%>
-      <p>Mister <%= booking.user.last_name %></p>
-      <p>Reservation @<%= booking.restaurant.name %></p>
-      <p><%= booking.user.registration.email %></p>
     </div>
   <% end %>
   <% end %>
 </div>
-
