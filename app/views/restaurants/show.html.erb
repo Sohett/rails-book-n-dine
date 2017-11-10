@@ -1,10 +1,59 @@
-
-
+<% if @restaurant.photos.any? %>
 
   <div class="banner show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path @restaurant.photos.first.path%>')">
+      <h2><%= @restaurant.name%></h2>
+    </div>
+      <div class="container">
+      <div class="card-category"></div>
+    </div>
+
+    <div class="container">
+      <div class="row text-center box">
+        <div class="col-md-3">
+          <h3>Address</h3>
+          <p><%= @restaurant.address %></p>
+        </div>
+        <div class="col-md-3">
+          <h3>Municipality</h3>
+          <p><%= @restaurant.municipality %></p>
+        </div>
+        <div class="col-md-3">
+          <h3>Capacity</h3>
+          <p><%= @restaurant.capacity %></p>
+        </div>
+        <div class="col-md-3">
+          <h3>Category</h3>
+          <p><%= @restaurant.category %></p>
+        </div>
+      </div>
+
+      <div class="row text-center">
+        <%= link_to "Book this restaurant", new_restaurant_booking_path(@restaurant), class: "btn btn-primary btn-booking" %>
+      </div>
+
+    </div>
+
+  <div style="margin-bottom: 100px;" class="container" id="restaurants">
+    <div class="row">
+      <%  @restaurant.photos.each do |photo|%>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path photo.path, height: 300, width: 400, crop: :fill %>')">
+
+
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+<!-- if no photo has been uploaded yet, use the by default photo as a banner -->
+<% else %>
+
+  <div class="banner show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
     <h2><%= @restaurant.name%></h2>
   </div>
-    <div class="container">
+
+  <div class="container">
     <div class="card-category"></div>
   </div>
 
@@ -34,21 +83,7 @@
 
   </div>
 
-
-<div style="margin-bottom: 100px;" class="container" id="restaurants">
-  <div class="row">
-    <%  @restaurant.photos.each do |photo|%>
-    <div class="col-xs-12 col-sm-4">
-      <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path photo.path, height: 300, width: 400, crop: :fill %>')">
-
-
-      </div>
-    </div>
-    <% end %>
-  </div>
-</div>
-
-
+  <% end %>
 
 
 <div id="map" style="width: 100%; height: 600px;"></div>
