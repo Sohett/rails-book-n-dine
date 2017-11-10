@@ -1,10 +1,10 @@
-<h2 class="text-center"> Info concerning the booking on <%= @booking.booking_date %> </h2>
+<h2 class="text-center"> Booking info </h2>
 
 
 <div class="container" style="margin-bottom: 20px">
   <div class="row text-center box">
     <div class="col-md-3">
-      <h3>The booker info</h3>
+      <h3>Booker info</h3>
       <p><%= @booking.user.first_name %> <%= @booking.user.last_name %></p>
       <p><%= @booking.user.registration.email %></p>
     </div>
@@ -18,8 +18,12 @@
     </div>
     <div class="col-md-3">
       <h3>Your restaurant</h3>
-      <p><%= @booking.restaurant.name %></p>
+      <p><strong><%= @booking.restaurant.name %></strong></p>
       <p><%= @booking.restaurant.address %></p>
     </div>
   </div>
+</div>
+
+<div class="container">
+<%= link_to "Back",  "#{user_path(current_user)}#calendar"%>
 </div>

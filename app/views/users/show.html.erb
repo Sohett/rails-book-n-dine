@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="profile text-center">
+<div class="container-fluid" style="padding: 0;">
+  <div class="profile text-center" style="overflow: auto;">
     <div class="main">
       <div class="main-content">
-          <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
+        <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
         <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
         <p><%= current_user.phone_number %></p>
         <p><%= current_user.registration.email %></p>
@@ -25,7 +25,7 @@
        <% end %>
      </div>
    </div>
-   <div class="description">
+   <div class="description" style="overflow: auto;">
     <% if current_user.bookings.any?%>
     <div class="container-fluid">
       <div class="row">
@@ -46,86 +46,74 @@
     <% end %>
   </div>
   <div class="container text-center">
-    <p><%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %> </p>
+    <%= link_to "New reservation","#{restaurants_path}#restaurants", class: "btn btn-primary" %>
   </div>
 </div>
 
 
 <% if @user.owner  %>
+  <div class="wrapper" style="margin: 30px auto; background: rgba(235, 235, 235, 0.95); display: block;">
+    <div class="container">
+      <div class="row spaced-header text-center">
+        <h2>My restaurants</h2>
+      </div>
 
-<div class="container" style="margin: 30px auto; background: #d6d6d6;">
-  <h2>My restaurants</h2>
-
-  <div class="container">
-    <h3>Add a restaurant</h3>
-    <%=  link_to "Add a restaurant", new_restaurant_path, class: "btn btn-primary" %>
-  </div>
-
-  <div class="container">
-    <h3>My restaurants bookings</h3>
-    <% if current_user.restaurants.any?%>
-    <ol>
-      <% @user.restaurants.each do |restaurant|  %>
-      <div class="row">
-        <li>
-          <p>
-            <strong>Name: </strong><%= restaurant.name %>|
-            <strong>Capacity: </strong><%= restaurant.capacity %>|
-            <strong>Address: </strong><%= restaurant.address %> |
-            <strong>Municipality: </strong><%= restaurant.municipality %>
-            <%= link_to "Edit my restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning" %> </p>
-
-          </li>
-          <% restaurant.bookings.each do |booking| %>
-          <div class="col-xs-12 col-sm-4">
-            <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
-              <div class="card-description">
-                <h2><%= booking.user.first_name + " " + booking.user.last_name %></h2>
-                <h4><%= booking.booking_date %></h4>
-                <p><%= booking.status %></p>
-              </div>
-            </div>
+      <% if current_user.restaurants.any?%>
+      <div class="text-center box">
+        <% @user.restaurants.each do |restaurant|  %>
+        <div class="row">
+          <div class="col-sm-3">
+            <h3>Address</h3>
+            <p><%= restaurant.address %></p>
           </div>
-          <% end %>
+          <div class="col-sm-3">
+            <h3>Capacity</h3>
+            <p><%= restaurant.capacity %></p>
+          </div>
+          <div class="col-sm-3">
+            <h3>Category</h3>
+            <p><%= restaurant.category %></p>
+          </div>
+          <div class="col-sm-3">
+            <%= link_to "Edit restaurant", edit_restaurant_path(restaurant), class: "btn btn-warning btn-centered" %>
+          </div>
         </div>
         <% end  %>
-        <% else %>
-        <p>No booking yet</p>
-        <% end %>
-      </ol>
-    </div>
-
-    <!-- this div displays the restaurants in the card format -->
-    <!-- would be nice to click on it and have access to all the bookings  -->
-
-    <!-- <div class="container">
-      <h3>All my bookings</h3>
-      <% @user.restaurants.each do |restaurant| %>
-      <div class="col-xs-12 col-sm-4">
-        <div class="card card-show" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= asset_path "restaurant.jpg" %>')">
-          <div class="card-description">
-            <h2><%= restaurant.name %></h2>
-            <p><strong>...</strong></p>
-          </div>
+        <div class="row">
+          <%=  link_to "Add a restaurant", new_restaurant_path, class: "btn btn-primary" %>
         </div>
       </div>
-        <% end %>
-      </div> -->
-    </div>
+      <% else %>
+      <p>No booking yet</p>
+      <% end %>
 
-    <% end  %>
-
-
-<!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
-<div class="container">
-  <%= month_calendar events: @user.bookings do |date, bookings| %>
-  <%= date.day %>
-  <% bookings.each do |booking| %>
-    <div>
-      <div class="event">
-        <%= link_to "#{booking.user.first_name} #{booking.user.last_name} at #{booking.restaurant.name}", restaurant_booking_path(booking.restaurant, booking), class: "link_to" %>
+<style>
+  .spaced-header {
+    padding: 50px 0px;
+    font-weight: bold;
+    letter-spacing: 15px;
+  }
+</style>
+      <div class="row text-center spaced-header">
+        <h2>Calendar</h2>
+      </div>
+      <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
+      <div class="row" style="padding-top: 50px;" id="calendar">
+        <%= month_calendar events: @user.bookings do |date, bookings| %>
+        <%= date.day %>
+        <% bookings.each do |booking| %>
+        <div>
+          <div class="event">
+            <%= link_to "#{booking.user.first_name} #{booking.user.last_name} at #{booking.restaurant.name}", restaurant_booking_path(booking.restaurant, booking), class: "link_to" %>
+          </div>
+        </div>
+      <% end %>
+      <% end %>
       </div>
     </div>
-  <% end %>
-  <% end %>
+  </div>
+<% end  %>
 </div>
+
+
+
