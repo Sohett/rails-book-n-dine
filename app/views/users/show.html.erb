@@ -2,8 +2,8 @@
   <div class="profile text-center">
     <div class="main">
       <div class="main-content">
-        <%= cl_image_tag current_user.photo.path, class: "avatar-large dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown"%>
-        <h2><%= current_user.first_name %></h2>
+        <%= cl_image_tag current_user.photo.path, class:"avatar-large"%>
+        <h2><%= current_user.first_name %> <%= current_user.last_name %></h2>
         <p><%= current_user.phone_number %></p>
         <p><%= current_user.registration.email %></p>
         <p><%=  %></p>
@@ -94,6 +94,7 @@
         <% end %>
       </ol>
     </div>
+
     <!-- this div displays the restaurants in the card format -->
     <!-- would be nice to click on it and have access to all the bookings  -->
 
@@ -115,19 +116,17 @@
     <% end  %>
 
 
-    <!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
-
-    <div class="container">
-      <%= month_calendar events: @user.bookings do |date, bookings| %>
-      <%= date.day %>
-      <% bookings.each do |booking| %>
-      <div>
-        <%= cl_image_tag current_user.photo.path, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown"%>
-        <p>Mister <%= booking.user.last_name %></p>
-        <p>Reservation @<%= booking.restaurant.name %></p>
-        <p><%= booking.user.registration.email %></p>
+<!--  calendar from the gem  https://github.com/excid3/simple_calendar#installation   -->
+<div class="container">
+  <%= month_calendar events: @user.bookings do |date, bookings| %>
+  <%= date.day %>
+  <% bookings.each do |booking| %>
+    <div>
+      <div class="event">
+        <%= link_to booking.restaurant.name, restaurant_booking_path(booking.restaurant, booking) %> 
       </div>
-      <% end %>
-      <% end %>
+      <%= cl_image_tag current_user.photo.path, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown"%>
     </div>
-
+  <% end %>
+  <% end %>
+</div>

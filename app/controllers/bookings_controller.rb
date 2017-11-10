@@ -1,6 +1,10 @@
 class BookingsController < ApplicationController
   before_action :set_restaurant, only: [:show, :new, :create, :destroy]
 
+  def show
+    @booking = Booking.find(params.require(:id))
+  end
+
   def new
     @booking = Booking.new
   end
