@@ -1,9 +1,9 @@
-<%= simple_form_for([@user]) do |f| %>
-  <%= f.error_notification %>
-  <div class="form-inputs">
-    <%= f.input :owner %>
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+<% if @user.owner == true  %>
+<div class="container">
+  <%= link_to "Don't be an owner anymore", owner_path(@user), class: "btn btn-info" %>
+</div>
+<% else  %>
+<div class="container">
+  <%= link_to "Become an owner", owner_path(@user), class: "btn btn-info" %>
+</div>
+<% end  %>

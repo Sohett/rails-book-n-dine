@@ -1,5 +1,15 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:owner, :show, :edit, :update]
+
+  def owner
+    if @user.owner == false
+      @user.owner = true
+    else
+      @user.owner = false
+    end
+    @user.save!
+    redirect_to user_path(@user)
+  end
 
   def show
   end
