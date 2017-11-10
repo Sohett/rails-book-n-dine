@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'restaurants#index'
 
   resources :users, only: [:show, :edit, :update]
+  get 'user/:id/owner', to:'users#owner', as: :owner
   resources :restaurants do
   resources :bookings, except: [:edit, :update]
   end
